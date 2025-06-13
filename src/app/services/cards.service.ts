@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { API } from '../../shared/api';
 import { Observable, of, BehaviorSubject, catchError, map, tap } from 'rxjs';
 import { ICard, ICardServerRes } from '../models/cards';
-import { LoaderService } from './loader.service';
+import { LoaderService } from '../services/loader.service';
 
 @Injectable({
   providedIn: 'root'
