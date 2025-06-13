@@ -1,0 +1,16 @@
+{
+  "cards": [
+    {
+      "id": "1",
+      "name": "Изделие 1",
+      "description": "Описание изделия 1",
+      "image": "plastic1.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Изделие 2",
+      "description": "Описание изделия 2",
+      "image": "plastic2.jpg"
+    }
+  ]
+}
