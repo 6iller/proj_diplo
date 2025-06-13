@@ -13,6 +13,15 @@ import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
   selector: 'app-cards',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    CardModule,
+    InputGroupModule
+  ],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })

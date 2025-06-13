@@ -1,10 +1,8 @@
 <div class="container mt-4">
-  <p-inputGroup>
-    <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
-    <p-inputGroupAddon>
-      <p-button icon="pi pi-search" severity="secondary" variant="text"></p-button>
-    </p-inputGroupAddon>
-  </p-inputGroup>
+ <div class="p-inputgroup">
+  <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
+  <p-button pButton icon="pi pi-search" severity="secondary" />
+</div>
 
   <div class="cards-list mt-4">
     <div *ngFor="let card of filteredCards" class="card-item">
