@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ICard } from '../../models/cards';
 import { CardsService } from '../../services/cards.service';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // для [(ngModel)]
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+
+
 
 @Component({
   selector: 'app-cards',
