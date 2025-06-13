@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <p-inputGroup>
+    <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
+    <p-inputGroupAddon>
+      <p-button icon="pi pi-search" severity="secondary" variant="text"></p-button>
+    </p-inputGroupAddon>
+  </p-inputGroup>
+
+  <div class="cards-list mt-4">
+    <div *ngFor="let card of filteredCards" class="card-item">
+      <p-card [header]="card.name" styleClass="product-card">
+        <img src="/assets/img/{{ card.image }}" alt="{{ card.name }}" class="product-image" />
+        <p>{{ card.description }}</p>
+      </p-card>
+    </div>
+
+    <div *ngIf="filteredCards.length === 0" class="no-data mt-4">
+      Нет подходящих изделий
+    </div>
+  </div>
+</div>

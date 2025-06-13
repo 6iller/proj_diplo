@@ -1,0 +1,21 @@
+.cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+
+  .card-item {
+    flex: 0 0 calc(33.33% - 1rem);
+  }
+
+  .product-image {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+
+  .no-data {
+    font-weight: bold;
+    color: #888;
+  }
+}
