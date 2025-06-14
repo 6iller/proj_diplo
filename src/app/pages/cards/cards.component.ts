@@ -8,6 +8,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,7 +21,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
     InputTextModule,
     ButtonModule,
     CardModule,
-    InputGroupModule
+    InputGroupModule,
+    HttpClientModule 
   ],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
