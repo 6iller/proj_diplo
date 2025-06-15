@@ -1,4 +1,5 @@
 export const API = {
   // другие эндпоинты...
-  cards: 'http://localhost:4200/cards' // порт!
+  // cards: 'assets/cards.json'
+  cards: 'http://localhost:3000/api/cards',
 };

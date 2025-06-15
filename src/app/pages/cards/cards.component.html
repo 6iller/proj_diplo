@@ -7,7 +7,8 @@
   <div class="cards-list mt-4">
     <div *ngFor="let card of filteredCards" class="card-item">
       <p-card [header]="card.name" styleClass="product-card">
-        <img src="/assets/img/{{ card.image }}" alt="{{ card.name }}" class="product-image" />
+        <!-- <img src="/assets/img/{{ card.image }}" alt="{{ card.name }}" class="product-image" /> -->
+         <img src="http://localhost:3000/uploads/{{ card.image }}" alt="{{ card.name }}" class="product-image" /> 
         <p>{{ card.description }}</p>
       </p-card>
     </div>
@@ -17,4 +18,3 @@
     </div>
   </div>
 </div>
-<p>код не работает</p>

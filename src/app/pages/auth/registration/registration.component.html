@@ -1,0 +1,49 @@
+<div class="p-field flex flex-column align-items-center">
+  <span>Login</span>
+  <input
+    type="text"
+    pInputText
+    [(ngModel)]="login"
+    [ngClass]="{ 'p-invalid': login.length < 3 }"
+  />
+
+  <span class="mt-2">Password</span>
+  <input
+    type="password"
+    pInputText
+    [(ngModel)]="password"
+    [ngClass]="{ 'p-invalid': password.length < 6 }"
+  />
+
+  <span class="mt-2">Repeat Password</span>
+  <input
+    type="password"
+    pInputText
+    [(ngModel)]="repeatPassword"
+    [ngClass]="{ 'p-invalid': password !== repeatPassword }"
+  />
+
+  <span class="mt-2">Email (optional)</span>
+  <input type="email" pInputText [(ngModel)]="email" />
+
+  <div class="mt-2">
+    <p-checkbox
+      inputId="save"
+      binary="true"
+      [(ngModel)]="isRemember"
+    ></p-checkbox>
+    <label for="save">Сохранить пользователя</label>
+  </div>
+
+  <button
+    pButton
+    label="Sign Up"
+    class="mt-3"
+    (click)="onAuth()"
+    [disabled]="
+      login.length < 3 ||
+      password.length < 6 ||
+      password !== repeatPassword
+    "
+  ></button>
+</div>

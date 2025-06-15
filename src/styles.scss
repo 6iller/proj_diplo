@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+/* Центрируем контейнер с формой */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 2rem);
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+/* Ширина и тень для табов */
+.auth-card {
+  width: 24rem;
+  padding: 2rem;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* Зеленая рамка для инпутов */
+.auth-card input.p-inputtext {
+  border: 2px solid #4caf50; /* зеленая */
+  border-radius: 4px;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/* Оформление кнопки */
+.auth-card button.p-button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Отступы между полями */
+.auth-card .p-field {
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,15 @@
+<div class="p-field flex flex-column align-items-center">
+  <span>Login</span>
+  <input type="text" pInputText [(ngModel)]="login" />
+
+  <span class="mt-2">Password</span>
+  <input type="password" pInputText [(ngModel)]="password" />
+
+  <button
+    pButton
+    label="Войти"
+    class="mt-3"
+    (click)="onAuth()"
+    [disabled]="login.length < 3 || password.length < 6"
+  ></button>
+</div>

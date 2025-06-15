@@ -35,6 +35,7 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cardsService.getCards().subscribe((res) => {
+      console.log('Загруженные карточки:', res); // ← здесь отладка
       this.cards = res.cards;
     });
   }
