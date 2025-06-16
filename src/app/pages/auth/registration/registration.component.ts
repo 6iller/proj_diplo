@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -11,11 +11,11 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-registration',
   standalone: true,
   imports: [FormsModule, NgClass, InputTextModule, ButtonModule, CheckboxModule],
-  providers: [MessageService],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
+  @Output() registered = new EventEmitter<void>();
   login = '';
   password = '';
   repeatPassword = '';
@@ -32,9 +32,11 @@ export class RegistrationComponent {
     this.auth
       .register({ username: this.login, password: this.password })
       .subscribe({
-        next: () => this.msg.add({ severity: 'success', detail: 'Успешно!' }),
-        error: () =>
-          this.msg.add({ severity: 'error', detail: 'Ошибка регистрации' })
+        next: () => {
+          this.msg.add({ severity: 'success', summary: 'Успех', detail: 'Регистрация прошла успешно' });
+          this.registered.emit(); // сообщаем родителю
+        },
+        error: () => this.msg.add({ severity: 'error', summary: 'Ошибка', detail: 'Ошибка регистрации' })
       });
   }
 }

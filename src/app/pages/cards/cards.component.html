@@ -1,20 +1,21 @@
 <div class="container mt-4">
- <div class="p-inputgroup">
-  <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
-  <p-button pButton icon="pi pi-search" severity="secondary" />
-</div>
+  <div class="p-inputgroup">
+    <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
+    <p-button icon="pi pi-search" severity="secondary"></p-button>
+  </div>
 
   <div class="cards-list mt-4">
-    <div *ngFor="let card of filteredCards" class="card-item">
-      <p-card [header]="card.name" styleClass="product-card">
-        <!-- <img src="/assets/img/{{ card.image }}" alt="{{ card.name }}" class="product-image" /> -->
-         <img src="http://localhost:3000/uploads/{{ card.image }}" alt="{{ card.name }}" class="product-image" /> 
-        <p>{{ card.description }}</p>
-      </p-card>
-    </div>
+    <ng-container *ngIf="(cards | filterCards: searchTerm).length; else noData">
+      <div *ngFor="let card of cards | filterCards: searchTerm" class="card-item">
+        <p-card [header]="card.name" styleClass="product-card">
+          <img src="http://localhost:3000/uploads/{{ card.image }}" alt="{{ card.name }}" class="product-image" />
+          <p>{{ card.description }}</p>
+        </p-card>
+      </div>
+    </ng-container>
 
-    <div *ngIf="filteredCards.length === 0" class="no-data mt-4">
-      Нет подходящих изделий
-    </div>
+    <ng-template #noData>
+      <div class="no-data mt-4">Нет подходящих изделий</div>
+    </ng-template>
   </div>
 </div>

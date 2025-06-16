@@ -1,19 +1,19 @@
 <div class="auth-wrapper">
-    <h1>Добро пожаловать!
-        <p>Для доступа к производственным картам зарегистрируйтесь или пройдите авторизацию.</p>
-    </h1>
+  <h1>Добро пожаловать!
+    <p>Для доступа к карточкам зарегистрируйтесь или выполните вход.</p>
+  </h1>
   <div class="auth-card">
-    <p-tabs value="0">
+    <p-tabs #tabs [(value)]="activeTab">
       <p-tablist>
-        <p-tab value="0">Авторизация</p-tab>
-        <p-tab value="1">Регистрация</p-tab>
+        <p-tab [value]="0">Авторизация</p-tab>
+        <p-tab [value]="1">Регистрация</p-tab>
       </p-tablist>
       <p-tabpanels>
-        <p-tabpanel value="0">
+        <p-tabpanel [value]="0">
           <app-authorization></app-authorization>
         </p-tabpanel>
-        <p-tabpanel value="1">
-          <app-registration></app-registration>
+        <p-tabpanel [value]="1">
+          <app-registration (registered)="switchToAuth()"></app-registration>
         </p-tabpanel>
       </p-tabpanels>
     </p-tabs>

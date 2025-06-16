@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterCardsPipe } from '../../pipes/filter_cards_pipe';
 
 
 
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     ButtonModule,
     CardModule,
     InputGroupModule,
+    FilterCardsPipe,
     HttpClientModule 
   ],
   templateUrl: './cards.component.html',
@@ -40,7 +42,7 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  get filteredCards(): ICard[] {
-    return this.cardsService.searchCards(this.cards, this.searchTerm);
-  }
+  // get filteredCards(): ICard[] {
+  //   return this.cardsService.searchCards(this.cards, this.searchTerm);
+  // }
 }

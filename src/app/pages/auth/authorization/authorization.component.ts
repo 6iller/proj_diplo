@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-authorization',
   standalone: true,
   imports: [FormsModule, InputTextModule, ButtonModule],
-  providers: [MessageService],
   templateUrl: './authorization.component.html',
   styleUrls: ['./authorization.component.scss']
 })
@@ -26,7 +25,14 @@ export class AuthorizationComponent {
 
   onAuth(): void {
     this.auth.login({ username: this.login, password: this.password }).subscribe({
-      next: () => this.router.navigate(['cards']),
+      next: () => {
+      this.msg.add({
+        severity: 'success',
+        summary: 'Успешно',
+        detail: 'Авторизация прошла успешно'
+      });
+      setTimeout(() => this.router.navigate(['cards']), 2000); // краткая пауза
+    },
       error: () =>
         this.msg.add({ severity: 'error', detail: 'Неверный логин/пароль' })
     });

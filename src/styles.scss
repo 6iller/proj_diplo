@@ -35,3 +35,30 @@
 .auth-card .p-field {
   margin-bottom: 1rem;
 }
+
+/* Стиль для успешных уведомлений */
+.p-toast .p-toast-message.p-toast-message-success {
+  border: 2px solid #4caf50;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+}
+
+/* Стиль для ошибок */
+.p-toast .p-toast-message.p-toast-message-error {
+  border: 2px solid #f44336;
+  background-color: #ffebee;
+  border-radius: 8px;
+}
+
+/* Общие стили для контейнера и рамок */
+.p-toast .p-toast-message {
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Стиль иконок */
+.p-toast .p-toast-icon {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
