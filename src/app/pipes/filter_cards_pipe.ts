@@ -13,7 +13,7 @@ export class FilterCardsPipe implements PipeTransform {
 
     return cards.filter(c =>
       c.name.toLowerCase().includes(lower) ||
-      c.description.toLowerCase().includes(lower)
+      c.itemCode.toLowerCase().includes(lower)
     );
   }
 }

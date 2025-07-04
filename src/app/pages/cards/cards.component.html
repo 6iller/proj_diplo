@@ -1,21 +1,167 @@
-<div class="container mt-4">
-  <div class="p-inputgroup">
-    <input pInputText placeholder="Поиск изделия" [(ngModel)]="searchTerm" />
-    <p-button icon="pi pi-search" severity="secondary"></p-button>
+<div class="top-bar flex items-center p-2">
+  <div class="center-buttons flex items-center mx-auto space-x-3">
+    <p-button
+      label="ДКС‑3"
+      [severity]="activeCollection === 'DKS3' ? 'success' : 'secondary'"
+      [rounded]="true"
+      (click)="switchCollection('DKS3')">
+    </p-button>
+    <p-button
+      label="ЦСЭ"
+      class="ml-3"
+      [severity]="activeCollection === 'CSE' ? 'success' : 'secondary'"
+      [rounded]="true"
+      (click)="switchCollection('CSE')">
+    </p-button>
+    <p-button
+      class="logout-button"
+      *ngIf="isAdmin"
+      label="Логи"
+      icon="pi pi-file"
+      class="ml-3"
+      (click)="openLogs()">
+    </p-button>
+    <p-button
+      *ngIf="isAdmin"
+      icon="pi pi-plus"
+      severity="success"
+      class="ml-3"
+      label="Карточка"
+      (click)="showAddSidebar = true">
+    </p-button>
   </div>
-
-  <div class="cards-list mt-4">
-    <ng-container *ngIf="(cards | filterCards: searchTerm).length; else noData">
-      <div *ngFor="let card of cards | filterCards: searchTerm" class="card-item">
-        <p-card [header]="card.name" styleClass="product-card">
-          <img src="http://localhost:3000/uploads/{{ card.image }}" alt="{{ card.name }}" class="product-image" />
-          <p>{{ card.description }}</p>
-        </p-card>
-      </div>
-    </ng-container>
-
-    <ng-template #noData>
-      <div class="no-data mt-4">Нет подходящих изделий</div>
-    </ng-template>
-  </div>
+  <p-button
+    label="Выход"
+    icon="pi pi-sign-out"
+    severity="danger"
+    (click)="logout()">
+  </p-button>
 </div>
+
+<p-sidebar
+  [(visible)]="showAddSidebar"
+  position="right"
+  [baseZIndex]="1000"
+  modal="true"
+  [style]="{ width: '25rem' }"
+  [dismissible]="false"
+  [showCloseIcon]="false">
+  <button pButton icon="pi pi-times" class="p-button-rounded p-button-secondary" (click)="showAddSidebar = false"></button>
+  <h3>Добавить карточку</h3>
+  <form (ngSubmit)="submitNewCard()" #cardForm="ngForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label>Код изделия</label>
+        <input pInputText [(ngModel)]="newCard.itemCode" name="itemCode" required />
+      </div>
+      <div class="p-field">
+        <label>Название</label>
+        <input pInputText [(ngModel)]="newCard.name" name="name" required />
+      </div>
+      <div class="p-field">
+        <label>Используемое сырьё</label>
+        <input pInputText [(ngModel)]="newCard.rawMaterial" name="rawMaterial" />
+      </div>
+      <div class="p-field">
+        <label>Поставщик</label>
+        <input pInputText [(ngModel)]="newCard.supplier" name="supplier" />
+      </div>
+      <div class="p-field">
+        <label>Назначение</label>
+        <input pInputText [(ngModel)]="newCard.purpose" name="purpose" />
+      </div>
+      <div class="p-field">
+        <label>Описание</label>
+        <input pInputText [(ngModel)]="newCard.description" name="description" />
+      </div>
+      <div class="p-field">
+        <label>Изображение</label>
+        <input type="file" (change)="onNewImageSelected($event)" />
+      </div>
+      <p-button type="submit" label="Создать" [disabled]="!cardForm.form.valid"></p-button>
+    </div>
+  </form>
+</p-sidebar>
+
+<div class="flex justify-content-center mb-4">
+  <p-inputgroup class="search_panel max-w-2xl w-full">
+    <input 
+      pInputText 
+      variant="filled" 
+      placeholder="Для поиска изделия введите его код или название" 
+      [(ngModel)]="searchTerm" />
+    <p-button
+      icon="pi pi-search"
+      severity="secondary"
+      variant="text">
+    </p-button>
+  </p-inputgroup>
+</div>
+
+<div class="cards-container">
+  <ng-container *ngIf="(cards | filterCards: searchTerm).length; else noData">
+    <div *ngFor="let card of cards | filterCards: searchTerm" class="product-card">
+      <p-card class="card-flex title" styleClass="surface-card shadow-2" [header]="card.name">
+        <img 
+          src="http://localhost:3000/uploads/pictures/{{ card.image }}" 
+          alt="{{ card.name }}" 
+          class="card-img"
+        />
+        <div class="card-body">
+          <div><strong>Код изделия:</strong> {{ card.itemCode }}</div>
+          <div><strong>Сырьё:</strong> {{ card.rawMaterial }}</div>
+          <div><strong>Поставщик:</strong> {{ card.supplier }}</div>
+          <div><strong>Назначение:</strong> {{ card.purpose }}</div>
+          <div><strong>ТПА:</strong> {{ card.description }}</div>
+        </div>
+        <div class="card-footer">
+          <button
+            pButton
+            icon="pi pi-folder-open"
+            label="Файлы"
+            (click)="openFilesDialog(card)">
+          </button>
+          <button
+            *ngIf="isAdmin"
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteCard(card.id)">
+          </button>
+        </div>
+      </p-card>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <div class="no-data mt-4">Нет подходящих изделий</div>
+  </ng-template>
+</div>
+
+<p-dialog [(visible)]="showFilesDialog" header="Файлы изделия" modal="true" [style]="{ width: '30rem' }">
+  <ng-container *ngIf="selectedCard">
+    <div *ngFor="let field of fileFields" class="mb-3">
+      <span class="font-medium">{{ field.label }}:</span>
+      <ng-container *ngIf="selectedCard![field.key]; else noFile">
+        <a [href]="'http://localhost:3000/uploads/files/' + selectedCard![field.key]"
+           target="_blank" class="mr-2 text-blue-600 underline">
+          {{ selectedCard![field.key] }}
+        </a>
+        <div class="p-field-checkbox" style="display: inline-block; margin-left: 1rem;">
+          <p-checkbox
+            [binary]="true"
+            [inputId]="field.key"
+            [(ngModel)]="confirmations[field.key]"
+            (onChange)="onCheckboxChange(field.key)">
+          </p-checkbox>
+          <label for="{{field.key}}">Подтверждаю ознакомление</label>
+        </div>
+      </ng-container>
+      <ng-template #noFile>
+        <span class="text-gray-500">Нет файла</span>
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-template pTemplate="footer">
+    <p-button label="Закрыть" (click)="showFilesDialog = false"></p-button>
+  </ng-template>
+</p-dialog>

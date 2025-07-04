@@ -40,4 +40,112 @@ export class CardsService {
   initShowFavoritesOnly(show: boolean): void {
     this.showFavoritesOnlySubject.next(show);
   }
+getCardsCollection(endpoint: 'cards' | 'cards2'): Observable<{ cards: ICard[] }> {
+  const url = endpoint === 'cards' ? API.cards : API.cards2;
+  return this.http.get<any>(url).pipe(
+    map(res => ({
+      cards: res.cards.map((c: any) => ({
+        id: c._id,
+        itemCode: c.itemCode,
+        name: c.name,
+        rawMaterial: c.rawMaterial,
+        supplier: c.supplier,
+        purpose: c.purpose,
+        description: c.description,
+        image: c.image,
+        operationsSheet: c.operationsSheet,
+        packagingInstruction: c.packagingInstruction,
+        labelTemplate: c.labelTemplate
+      }))
+    }))
+  );
+}
+
+getCardByIdCollection(endpoint: 'cards' | 'cards2', id: string): Observable<ICard> {
+  const url = endpoint === 'cards' ? API.cards : API.cards2;
+  return this.http.get<any>(`${url}/${id}`).pipe(
+    map(c => ({
+      id: c._id ?? c.id,
+      itemCode: c.itemCode,
+      name: c.name,
+      rawMaterial: c.rawMaterial,
+      supplier: c.supplier,
+      purpose: c.purpose,
+      description: c.description,
+      image: c.image,
+      operationsSheet: c.operationsSheet,
+      packagingInstruction: c.packagingInstruction,
+      labelTemplate: c.labelTemplate
+    }))
+  );
+}
+
+getCardByIdFrom(endpoint: 'cards' | 'cards2', id: string): Observable<ICard> {
+  const url = endpoint === 'cards' ? `${API.cards}/${id}` : `${API.cards2}/${id}`;
+  return this.http.get<any>(url).pipe(
+    map(c => ({
+      id: c._id,
+      itemCode: c.itemCode,
+      name: c.name,
+      rawMaterial: c.rawMaterial,
+      supplier: c.supplier,
+      purpose: c.purpose,
+      description: c.description,
+      image: c.image,
+      operationsSheet: c.operationsSheet,
+      packagingInstruction: c.packagingInstruction,
+      labelTemplate: c.labelTemplate
+    }))
+  );
+}
+uploadFile(endpoint: 'cards' | 'cards2', id: string, formData: FormData): Observable<ICard> {
+  const url = endpoint === 'cards' ? API.cards : API.cards2;
+  return this.http.post<any>(`${url}/${id}/upload`, formData).pipe(
+    map(c => ({
+      id: c._id ?? c.id,
+      itemCode: c.itemCode,
+      name: c.name,
+      rawMaterial: c.rawMaterial,
+      supplier: c.supplier,
+      purpose: c.purpose,
+      description: c.description,
+      image: c.image,
+      operationsSheet: c.operationsSheet,
+      packagingInstruction: c.packagingInstruction,
+      labelTemplate: c.labelTemplate
+    }))
+  );
+}
+
+
+// адрес поменян!
+logFileConfirmation(username: string, itemCode: string, fieldKey: keyof ICard): Observable<void> {
+  const payload = { username, itemCode, fieldKey }; 
+  // return this.http.post<void>(`${API.cards}/auth/log-confirm`, payload)
+  return this.http.post<void>('http://localhost:3000/api/auth/log-confirm', payload);
+
+}
+
+deleteCard(endpoint: 'cards' | 'cards2', id: string): Observable<void> {
+  const url = endpoint === 'cards' ? API.cards : API.cards2;
+  return this.http.delete<void>(`${url}/${id}`);
+}
+createCard(endpoint: 'cards' | 'cards2', form: FormData): Observable<ICard> {
+  const url = endpoint === 'cards' ? API.cards : API.cards2;
+  return this.http.post<any>(url, form).pipe(
+    map(c => ({
+      id: c._id ?? c.id,
+      itemCode: c.itemCode,
+      name: c.name,
+      rawMaterial: c.rawMaterial,
+      supplier: c.supplier,
+      purpose: c.purpose,
+      description: c.description,
+      image: c.image,
+      operationsSheet: c.operationsSheet,
+      packagingInstruction: c.packagingInstruction,
+      labelTemplate: c.labelTemplate
+    }))
+  );
+}
 }

@@ -1,4 +1,8 @@
-/* Центрируем контейнер с формой */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* контейнер */
 .auth-wrapper {
   display: flex;
   justify-content: center;
@@ -8,7 +12,7 @@
   background-color: #f9f9f9;
 }
 
-/* Ширина и тень для табов */
+/* Ширина и тень для карт */
 .auth-card {
   width: 24rem;
   padding: 2rem;
@@ -19,13 +23,13 @@
 
 /* Зеленая рамка для инпутов */
 .auth-card input.p-inputtext {
-  border: 2px solid #4caf50; /* зеленая */
+  border: 2px solid #4caf50;
   border-radius: 4px;
   padding: 0.5rem;
   width: 100%;
 }
 
-/* Оформление кнопки */
+/* кнопки */
 .auth-card button.p-button {
   width: 100%;
   margin-top: 1rem;
@@ -36,29 +40,55 @@
   margin-bottom: 1rem;
 }
 
-/* Стиль для успешных уведомлений */
+/* для успешных уведомлений */
 .p-toast .p-toast-message.p-toast-message-success {
   border: 2px solid #4caf50;
   background-color: #e8f5e9;
   border-radius: 8px;
 }
 
-/* Стиль для ошибок */
+/* для ошибок */
 .p-toast .p-toast-message.p-toast-message-error {
   border: 2px solid #f44336;
   background-color: #ffebee;
   border-radius: 8px;
 }
 
-/* Общие стили для контейнера и рамок */
+/* Общие стили всплывающих */
 .p-toast .p-toast-message {
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Стиль иконок */
+/* иконки */
 .p-toast .p-toast-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
 
+.cards-header .button-group .p-button.p-button {
+  min-width: 6rem !important;
+  margin-right: 0.5rem !important;
+}
+
+.cards-header .search-group .p-inputtext.p-inputtext {
+  border-radius: 0.5rem 0 0 0.5rem !important;
+}
+.cards-header .search-group .p-button.p-button {
+  border-radius: 0 0.5rem 0.5rem 0 !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}

@@ -12,6 +12,7 @@ interface AuthResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   token = localStorage.getItem('token') || '';
+  private _username = localStorage.getItem('username') || '';
 
   constructor(private http: HttpClient) {}
 
@@ -25,17 +26,26 @@ export class AuthService {
       .pipe(
         tap((res) => {
           this.token = res.token;
+          this._username = res.username;
           localStorage.setItem('token', res.token);
+          localStorage.setItem('username', res.username);
         })
       );
   }
 
   logout() {
     this.token = '';
+    this._username = '';
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
   }
+
 
   isLogged(): boolean {
     return !!this.token;
+  }
+
+    get currentUser(): string {
+    return this._username;
   }
 }

@@ -1,5 +1,46 @@
-<footer class="footer mt-5">
-  <div class="text-center">
-    &copy; 2025 PlasticTech. Все права защищены.
-  </div>
-</footer>
+<p-button
+  *ngIf="!isAdmin"
+  label="Обратная связь"
+  icon="pi pi-envelope"
+  (click)="showFeedbackSidebar = true"
+  class="ml-3">
+</p-button>
+
+<p-sidebar
+  [(visible)]="showFeedbackSidebar"
+  position="right"
+  [style]="{ width: '25rem' }"
+  [baseZIndex]="1000"
+  modal="true"
+  closeOnEscape="true"
+  [dismissible]="false"
+  [autoZIndex]="true">
+  <h3>Обратная связь</h3>
+  <form (ngSubmit)="sendFeedback()" #feedbackForm="ngForm">
+    <div class="p-field">
+      <label for="name">Ваше имя</label>
+      <input
+        pInputText
+        id="name"
+        name="name"
+        [(ngModel)]="feedback.name"
+        required />
+    </div>
+    <div class="p-field">
+      <label for="message">Опишите проблему</label>
+      <textarea
+        pInputTextarea
+        id="message"
+        name="message"
+        rows="5"
+        [(ngModel)]="feedback.message"
+        required>
+      </textarea>
+    </div>
+    <p-button
+      type="submit"
+      label="Отправить"
+      [disabled]="!feedbackForm.valid">
+    </p-button>
+  </form>
+</p-sidebar>

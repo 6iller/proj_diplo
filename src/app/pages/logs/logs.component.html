@@ -1,0 +1,32 @@
+<div class="flex justify-content-between mb-4">
+  <p-button
+    icon="pi pi-home"
+    label="На главную"
+    (click)="goHome()"
+    class="p-button-text">
+  </p-button>
+</div>
+
+<div class="toolbar">
+  <p-button 
+  label="Sign-in log"
+  (onClick)="selectedLog='auth';"
+  [styleClass]="selectedLog==='auth' ? 'p-button-success' : ''">
+</p-button>
+  <p-button 
+  label="File-confirm log"
+  (onClick)="selectedLog='file'"
+  [styleClass]="selectedLog==='file' ? 'p-button-success' : ''">
+</p-button>
+</div>
+
+
+<div class="filter mt-3 mb-3">
+  <input pInputText type="date" [(ngModel)]="dateFilter" placeholder="Выберите дату" />
+</div>
+<div><p-button label="Загрузить" (onClick)="loadLog()" severity="primary"></p-button></div>
+
+
+
+<!-- <pre class="log-output mt-3">{{ logText }}</pre> -->
+<textarea rows="15" cols="80" readonly [value]="logText"></textarea>
